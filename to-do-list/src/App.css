@@ -149,3 +149,9 @@ header {
     font-weight: 800;
     cursor: pointer;
 }
+#box_add_title_span {
+    font-family: 'OngleipParkDahyeon';
+    text-align: center;
+    font-size: 54px;
+    height: 84px;
+}
