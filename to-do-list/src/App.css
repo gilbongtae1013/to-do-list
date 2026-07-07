@@ -103,7 +103,7 @@ header {
 #todo_box_add input {
     height: 34px;
     width: 254px;
-    
+    font-size: 24px;
 }
 #todo_box_add label {
     font-size: 34px;
