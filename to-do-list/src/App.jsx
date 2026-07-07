@@ -23,7 +23,7 @@ function App() {
     const [box_list3, setBox_list3] = useState([]);
     const [user_title, setUser_title] = useState('');
     const [user_name, setUser_name] = useState('');
-    const [user_importance, setUser_importance] = useState('');
+    const [user_importance, setUser_importance] = useState('상');
 
     function chooga_click() {
         setBox_add_visible(true);
@@ -42,6 +42,7 @@ function App() {
                     {props.boxlist.map((box, index) => (
                         <div key={index} className={`box ${props.color}`}>
                             <span id='usertitle'>{box.title}</span>
+                            <div className="import" id={box.importance}>{box.importance}</div>
                             <span id='username'>생성자: {box.name}</span>
                             <span id="date">생성일: {today}</span>
                         </div>
@@ -111,9 +112,9 @@ function App() {
                     <div>
                         <label for="importance">난이도:</label>
                         <select id="importance" onChange={(e) => setUser_importance(e.target.value)}>
-                            <option value="imp1">상</option>
-                            <option value="imp2">중</option>
-                            <option value="imp3">하</option>
+                            <option value="상">상</option>
+                            <option value="중">중</option>
+                            <option value="하">하</option>
                         </select>
                     </div>
 
