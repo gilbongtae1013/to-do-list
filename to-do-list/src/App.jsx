@@ -27,6 +27,9 @@ function App() {
     const [max_box1, setMax_box1] = useState(1);
     const [max_box2, setMax_box2] = useState(1);
     const [max_box3, setMax_box3] = useState(1);
+    const [recent_box1, setRecent_box1] = useState(1);
+    const [recent_box2, setRecent_box2] = useState(1);
+    const [recent_box3, setRecent_box3] = useState(1);
 
     function chooga_click() {
         setBox_add_visible(true);
@@ -53,7 +56,7 @@ function App() {
                 </div>
                 <div id="box_bottom">
                     <img src={leftarrow} className='arrow'/>
-                    <span>1/{props.max}</span>
+                    <span>{props.recentbox}/{props.max}</span>
                     <img src={rightarrow} className='arrow'/>
                 </div>
             </div>
@@ -102,9 +105,9 @@ function App() {
                 To-do-List
             </header>
 
-            <Container status="daegi" name="대기¢" boxlist={box_list1} color="red" max={max_box1}/>
-            <Container status="jinhaeng" name="진행†" boxlist={box_list2} color="blue" max={max_box2}/>
-            <Container status="wanryo" name="완료♤" boxlist={box_list3} color="green" max={max_box3}/>
+            <Container status="daegi" name="대기¢" boxlist={box_list1} color="red" max={max_box1} recentbox={recent_box1}/>
+            <Container status="jinhaeng" name="진행†" boxlist={box_list2} color="blue" max={max_box2} recentbox={recent_box2}/>
+            <Container status="wanryo" name="완료♤" boxlist={box_list3} color="green" max={max_box3} recentbox={recent_box3}/>
 
             {box_add_visible && (
                 <div id="todo_box_add">
