@@ -36,6 +36,8 @@ function App() {
     }
 
     function Container(props) {
+        const start = (props.recentbox - 1) * 3;
+        const end = start + 3;
     
         return (
             <>
@@ -45,7 +47,7 @@ function App() {
                     <span id='chooga' onClick={()=> {chooga_click(); setBox_add_title(props.name);}}>+추가</span>
                 </div>
                 <div id='box_content'>
-                    {props.boxlist.map((box, index) => (
+                    {props.boxlist.slice(start, end).map((box, index) => (
                         <div key={index} className={`box ${props.color}`}>
                             <span id='usertitle'>{box.title}</span>
                             <div className="import" id={box.importance}>{box.importance}</div>
@@ -55,9 +57,17 @@ function App() {
                     ))}
                 </div>
                 <div id="box_bottom">
-                    <img src={leftarrow} className='arrow'/>
+                    <img src={leftarrow} className='arrow' onClick={() => {
+                        if(props.recentbox > 1){
+                            props.setRecent(props.recentbox -1);
+                        }
+                    }}/>
                     <span>{props.recentbox}/{props.max}</span>
-                    <img src={rightarrow} className='arrow'/>
+                    <img src={rightarrow} className='arrow' onClick={() => {
+                        if(props.recentbox < props.max){
+                            props.setRecent(props.recentbox +1);
+                        }
+                    }}/>
                 </div>
             </div>
             </>
@@ -65,10 +75,8 @@ function App() {
     }
 
     function Box_add() {
-        const titlename = document.getElementById('title_input');
-        const writername = document.getElementById('writer_name');
 
-        if(titlename.value == "" || writername.value == ""){
+        if(user_name == "" || user_title == ""){
             alert('빈칸을 모두 채우시오');
             return;
         }
@@ -84,18 +92,22 @@ function App() {
         if(box_add_title === "대기¢"){
             const newList = [...box_list1, user_data];
             setBox_list1(newList);
-            setMax_box1(Math.ceil(newList.length /3))
+            setMax_box1(Math.ceil(newList.length /3));
         }
         else if(box_add_title === "진행†"){
             const newList = [...box_list2, user_data];
             setBox_list2(newList);
-            setMax_box2(Math.ceil(newList.length /3))
+            setMax_box2(Math.ceil(newList.length /3));
         }
         else {
             const newList = [...box_list3, user_data];
             setBox_list3(newList);
-            setMax_box3(Math.ceil(newList.length /3))
+            setMax_box3(Math.ceil(newList.length /3));
         }
+
+        setUser_name('');
+        setUser_title('');
+        setUser_importance('상');
 
     }
     
@@ -105,9 +117,9 @@ function App() {
                 To-do-List
             </header>
 
-            <Container status="daegi" name="대기¢" boxlist={box_list1} color="red" max={max_box1} recentbox={recent_box1}/>
-            <Container status="jinhaeng" name="진행†" boxlist={box_list2} color="blue" max={max_box2} recentbox={recent_box2}/>
-            <Container status="wanryo" name="완료♤" boxlist={box_list3} color="green" max={max_box3} recentbox={recent_box3}/>
+            <Container status="daegi" name="대기¢" boxlist={box_list1} color="red" max={max_box1} recentbox={recent_box1} setRecent={setRecent_box1}/>
+            <Container status="jinhaeng" name="진행†" boxlist={box_list2} color="blue" max={max_box2} recentbox={recent_box2} setRecent={setRecent_box2}/>
+            <Container status="wanryo" name="완료♤" boxlist={box_list3} color="green" max={max_box3} recentbox={recent_box3} setRecent={setRecent_box3}/>
 
             {box_add_visible && (
                 <div id="todo_box_add">
