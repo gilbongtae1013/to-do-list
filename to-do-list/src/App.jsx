@@ -17,13 +17,16 @@ function App() {
 
 
     const [box_add_title, setBox_add_title] = useState('');
-    const [box_add_visible, setBox_add_visible] = useState(false);
+    const [box_add_visible, setBox_add_visible] = useState(false);``
     const [box_list1, setBox_list1] = useState([]);
     const [box_list2, setBox_list2] = useState([]);
     const [box_list3, setBox_list3] = useState([]);
     const [user_title, setUser_title] = useState('');
     const [user_name, setUser_name] = useState('');
     const [user_importance, setUser_importance] = useState('상');
+    const [max_box1, setMax_box1] = useState(1);
+    const [max_box2, setMax_box2] = useState(1);
+    const [max_box3, setMax_box3] = useState(1);
 
     function chooga_click() {
         setBox_add_visible(true);
@@ -50,7 +53,7 @@ function App() {
                 </div>
                 <div id="box_bottom">
                     <img src={leftarrow} className='arrow'/>
-                    <span>1/1</span>
+                    <span>1/{props.max}</span>
                     <img src={rightarrow} className='arrow'/>
                 </div>
             </div>
@@ -76,14 +79,21 @@ function App() {
         }
 
         if(box_add_title === "대기¢"){
-            setBox_list1([...box_list1, user_data]);
+            const newList = [...box_list1, user_data];
+            setBox_list1(newList);
+            setMax_box1(Math.ceil(newList.length /3))
         }
         else if(box_add_title === "진행†"){
-            setBox_list2([...box_list2, user_data]);
+            const newList = [...box_list2, user_data];
+            setBox_list2(newList);
+            setMax_box2(Math.ceil(newList.length /3))
         }
         else {
-            setBox_list3([...box_list3, user_data]);
+            const newList = [...box_list3, user_data];
+            setBox_list3(newList);
+            setMax_box3(Math.ceil(newList.length /3))
         }
+
     }
     
     return (
@@ -92,9 +102,9 @@ function App() {
                 To-do-List
             </header>
 
-            <Container status="daegi" name="대기¢" boxlist={box_list1} color="red"/>
-            <Container status="jinhaeng" name="진행†" boxlist={box_list2} color="blue"/>
-            <Container status="wanryo" name="완료♤" boxlist={box_list3} color="green"/>
+            <Container status="daegi" name="대기¢" boxlist={box_list1} color="red" max={max_box1}/>
+            <Container status="jinhaeng" name="진행†" boxlist={box_list2} color="blue" max={max_box2}/>
+            <Container status="wanryo" name="완료♤" boxlist={box_list3} color="green" max={max_box3}/>
 
             {box_add_visible && (
                 <div id="todo_box_add">
